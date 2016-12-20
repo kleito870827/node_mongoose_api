@@ -56,8 +56,35 @@ app.post('/product/mouse', (req,res)=>{
   // res.json(mouse);
 });
 
+app.put('/lions/:id', (req, res) => {
+
+  Mouse.findById(req.params.id,(err, mouse)=> {
+    if(err){
+      res.send(err);
+    }
+
+    mouse.date = Date.now();
+    mouse.color = req.body.color;
+    mouse.brand = req.body.brand;
+
+    mouse.save((err)=>{
+      if(err){throw err}
+    })
+    res.json(mouse);
+
+});
+
+})
+
+
 app.delete('/product/:product_id', (req,res)=>{
-  let mouse = _.find()
+  Mouse.remove({_id: req.params.id},(err, mouse)=>{
+      if(err){
+          console.log("Error" + err);
+      }
+      res.json(mouse);
+  console.log(mouse);
+  });
 });
 
 
